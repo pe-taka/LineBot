@@ -31,21 +31,9 @@ function createRandomPostMessage() {
   var keywordsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('keywords');
   var lastRow = keywordsSheet.getLastRow();
 
-  // 候補１を取得
-  var row1 = Math.ceil(Math.random() * lastRow);
-  var range1 = keywordsSheet.getRange(row1, 2);
-  var count1 = range1.isBlank() ? 0 : range1.getValue();
-  
-  // 候補２を取得
-  var row2 = Math.ceil(Math.random() * lastRow);
-  var range2 = keywordsSheet.getRange(row2, 2);
-  var count2 = range2.isBlank() ? 0 : range2.getValue();
-
-  // 出現頻度が低い方を選択
-  var row = count1 > count2 ? row2 : row1;
-  var count = count1 > count2 ? count2 : count1;
-
-  // 選択した方の出現頻度をインクリメント
+  var row = Math.ceil(Math.random() * lastRow);
+  var range = keywordsSheet.getRange(row, 2);
+  var count = range.isBlank() ? 0 : range.getValue();  
   keywordsSheet.getRange(row, 2).setValue(count + 1);
   
   return keywordsSheet.getRange(row, 1).getValue();
